@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/kishucounter/static/css/main.073c9b0a.css",
+    "main.js": "/kishucounter/static/js/main.21e6590f.js",
+    "static/js/787.6bd59f5a.chunk.js": "/kishucounter/static/js/787.6bd59f5a.chunk.js",
+    "static/media/logo.svg": "/kishucounter/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
+    "index.html": "/kishucounter/index.html",
+    "main.073c9b0a.css.map": "/kishucounter/static/css/main.073c9b0a.css.map",
+    "main.21e6590f.js.map": "/kishucounter/static/js/main.21e6590f.js.map",
+    "787.6bd59f5a.chunk.js.map": "/kishucounter/static/js/787.6bd59f5a.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.073c9b0a.css",
+    "static/js/main.21e6590f.js"
+  ]
+}
