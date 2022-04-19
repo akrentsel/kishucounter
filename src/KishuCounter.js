@@ -75,7 +75,7 @@ function KushuCounterContent() {
         </Toolbar>
       </AppBar>
       {/* Hero unit */}
-      <Container disableGutters maxWidth="sm" component="main" sx={{ pt: 8, pb: 6 }}>
+      <Container disableGutters maxWidth="md" component="main" sx={{ pt: 6, pb: 4 }}>
         <Typography
           component="h1"
           variant="h2"
@@ -87,8 +87,7 @@ function KushuCounterContent() {
         </Typography>
       </Container>
       {/* End hero unit */}
-      <Container maxWidth="sm" component="main" alignItems="flex-center">
-        {/* <Grid container spacing={5} alignItems="flex-center"> */}
+      <Container maxWidth="sm" component="main" alignItems="flex-center" sx={{ pb: 6 }}>
             <Grid
               item
               xs={12}
