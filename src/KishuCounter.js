@@ -47,7 +47,7 @@ const tiers = [
 
 const kishuWeight = 45;
 
-function KishuCounter() {
+function KushuCounterContent() {
   return (
     <React.Fragment>
       <GlobalStyles styles={{ ul: { margin: 0, padding: 0, listStyle: 'none' } }} />
@@ -173,5 +173,5 @@ function KishuCounter() {
 }
 
 export default function KishuCounter() {
-  return <KishuCounter />;
+  return <KushuCounterContent />;
 }
