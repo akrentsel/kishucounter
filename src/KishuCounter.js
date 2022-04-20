@@ -8,24 +8,67 @@ import CardContent from '@mui/material/CardContent';
 import CardHeader from '@mui/material/CardHeader';
 import CssBaseline from '@mui/material/CssBaseline';
 import Grid from '@mui/material/Grid';
-import StarIcon from '@mui/icons-material/StarBorder';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import Link from '@mui/material/Link';
 import GlobalStyles from '@mui/material/GlobalStyles';
 import Container from '@mui/material/Container';
-import Mandarin from './mandarin.png';
+import PropTypes from 'prop-types';
+import { styled } from '@mui/material/styles';
+import Dialog from '@mui/material/Dialog';
+import DialogTitle from '@mui/material/DialogTitle';
+import DialogContent from '@mui/material/DialogContent';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
 import db from './firebase';
 import { updateDoc, doc, onSnapshot } from "firebase/firestore"; 
 
 const akrentsel = doc(db, "kishucounters", "akrentsel");
+
+const BootstrapDialog = styled(Dialog)(({ theme }) => ({
+  '& .MuiDialogContent-root': {
+    padding: theme.spacing(2),
+  },
+  '& .MuiDialogActions-root': {
+    padding: theme.spacing(1),
+  },
+}));
+
+const BootstrapDialogTitle = (props) => {
+  const { children, onClose, ...other } = props;
+
+  return (
+    <DialogTitle sx={{ m: 0, p: 2 }} {...other}>
+      {children}
+      {onClose ? (
+        <IconButton
+          aria-label="close"
+          onClick={onClose}
+          sx={{
+            position: 'absolute',
+            right: 8,
+            top: 8,
+            color: (theme) => theme.palette.grey[500],
+          }}
+        >
+          <CloseIcon />
+        </IconButton>
+      ) : null}
+    </DialogTitle>
+  );
+};
+
+BootstrapDialogTitle.propTypes = {
+  children: PropTypes.node,
+  onClose: PropTypes.func.isRequired,
+};
+
 
 // Firestore CRUD examples: https://www.bezkoder.com/react-firestore-crud/
 
 class KishuCounterContent extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {kishuWeight: 0}
+        this.state = {kishuWeight: 0, aboutOpen: false}
 
         // TODO(akrentsel): Add a loading state.
     }
@@ -42,6 +85,13 @@ class KishuCounterContent extends React.Component {
         updateDoc(akrentsel, {kishuWeight: this.state.kishuWeight - 1});
     }
 
+    handleClickOpen = () => {
+        this.setState({aboutOpen: true});
+    };
+
+    handleClickClose = () => {
+        this.setState({aboutOpen: false});
+    };
 
     // Subscribe for live updates on the value of the kishuCounter.
     componentDidMount() {
@@ -69,14 +119,7 @@ class KishuCounterContent extends React.Component {
                     Kishu Counter
                 </Typography>
                 <nav>
-                    <Link
-                    variant="button"
-                    color="text.primary"
-                    href="#"
-                    sx={{ my: 1, mx: 1.5 }}
-                    >
-                    About
-                    </Link>
+                    <Button onClick={this.handleClickOpen}>About</Button>
                 </nav>
                 </Toolbar>
             </AppBar>
@@ -172,7 +215,23 @@ class KishuCounterContent extends React.Component {
                     {/* </Grid> */}
                 </Grid>
             </Container>
-            {/* TODO(akrentsel): Add a dialog that shows when "About" is clicked. */}
+            <BootstrapDialog
+                onClose={this.handleClickClose}
+                aria-labelledby="customized-dialog-title"
+                open={this.state.aboutOpen}
+            >
+                <BootstrapDialogTitle id="customized-dialog-title" onClose={this.handleClickClose}>
+                About
+                </BootstrapDialogTitle>
+                <DialogContent dividers>
+                <Typography gutterBottom>
+                    This site lets me (and you) keep track of how many pounds of <a href={"https://whiteonricecouple.com/kishu-mandarins/"} target="_blank">kishu mandarins</a> I've had. They're fantastic. If you want to try some, I recommend purchasing them at <a href={"https://www.montereymarket.com/"} target="_blank">Monterey Market</a>, though they are only available January-February.
+                </Typography>
+                <Typography gutterBottom>
+                    Made with &#x2764;&#xFE0F; by Alex Krentsel in Berkeley, CA. April 2022.
+                </Typography>
+                </DialogContent>
+            </BootstrapDialog>
             </React.Fragment>
         );
     }
